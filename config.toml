@@ -12,18 +12,22 @@ enableEmoji = true
 
 [[menu.main]]
     name = "About"
+    pre = ""
     url = "/about/"
     weight = 1
 [[menu.main]]
     name = "Facebook"
+    pre = "fa-facebook-square"
     url = "https://www.facebook.com/eugene100hickey"
     weight = 2
 [[menu.main]]
     name = "Twitter"
+    pre = "fa-twitter-square"
     url = "https://twitter.com/eugene100hickey"
     weight = 3
 [[menu.main]]
     name = "TU Dublin"
+    pre = "fa-leaf"
     url = "https://www.ittdublin.ie"
     weight = 4
 [params]
