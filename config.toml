@@ -1,4 +1,4 @@
-baseurl = "/"
+baseurl = "https://crazy-quasar.netlify.app/"
 languageCode = "en-us"
 title = "A Hugo website"
 theme = "hugo-lithium"
@@ -30,9 +30,15 @@ enableEmoji = true
     pre = "fa-leaf"
     url = "https://www.ittdublin.ie"
     weight = 4
+[[menu.main]]
+    name = "Posts"
+    pre = "fa-bullhorn"
+    url = "/post/"
+    weight = 5
 [params]
     description = "A website built through Hugo and blogdown."
-    customCSS = ["css/erum.css"]
+    chapter = "some QSO stuff"
+    customCSS = ["css/erum.css", "css/font-awesome.min.css"]
     
     # options for highlight.js (version, additional languages, and theme)
     highlightjsVersion = "9.12.0"
