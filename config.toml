@@ -1,6 +1,6 @@
 baseurl = "https://crazy-quasar.netlify.app/"
 languageCode = "en-us"
-title = "A Hugo website"
+title = "Blog on Astro-statistics"
 theme = "hugo-lithium"
 googleAnalytics = ""
 disqusShortname = ""
