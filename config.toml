@@ -53,7 +53,7 @@ enableEmoji = true
     favicon = "favicon.ico"
 
     [params.logo]
-    url = "eRum2020.png"
+    url = "brainCode.png"
     width = 50
     height = 50
     alt = "Logo"
