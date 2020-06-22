@@ -36,8 +36,8 @@ enableEmoji = true
     url = "/post/"
     weight = 5
 [params]
-    description = "A website built through Hugo and blogdown."
-    chapter = "some QSO stuff"
+    description = "Research into Neurological Disorders at Technological University Dublin."
+    chapter = "TU Dublin Neuro"
     customCSS = ["css/erum.css", "css/font-awesome.min.css"]
     
     # options for highlight.js (version, additional languages, and theme)

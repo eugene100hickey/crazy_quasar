@@ -1,12 +1,9 @@
 ---
-title: "About Eugene"
+title: "About Katie"
 date: "2020-05-23T21:48:51-07:00"
 ---
+My name is Katie. I graduated from the Institute of Technology Tallaght in 2018 with an honour’s degree in Pharmaceutical Science. During the final year of my degree I was lucky enough to be able to undertake a project outside of the boundaries of my modules which introduced me to Bioinformatics. The project title was Schizophrenia Analysis using Machine Learning on Gene Expression Data from the Allen Brain Atlas, I was lucky enough to have a supervisor (Eugene) who was fluent in R to help me learn about Machine Learning techniques which I used throughout my analysis .Upon the completion of the project I really felt there was more infinitely more to explore and fortunately Eugene felt the same. He was able to write a project proposal for a grant within the college The President’s Research Award and following my application and an interview, I secured a scholarship to complete a research masters under the same title in September 2018.
 
-The **European R users meeting (eRum)** is a biennial conference that brings the R users community of Europe together to exchange experiences, broaden knowledge of R and collaborate. e-Rum2020 will take place in Milan (Italy) from June 17 to June 20.
+As a part of my research masters I must undertake modules with the aim of upskilling and professional development to make myself a well-rounded researcher and a desirable candidate for employers upon the completion of my project. So far, I have completed modules in Research Ethics, Quantitative and Qualitative analysis, Computer Research Methods and Fundamentals of Medical Genetics and Genomics. These modules make up the thirty credits required as part of the PRA research masters structure, but there is still much to learn, and I am a firm believer that you should neve stop learning. I have undertaken courses on Coursera as well as datacamp to broaden my understanding of genetics and bioinformatics.
 
-**eRum** is an open event, and it welcomes expert and skillful practitioners as well as people who just want to take a peek at the future of data science. e-Rum2020 aims to provide a platform for the creation of new collaborations and for sharing experiences. eRum is a no profit conference, and this year it will be a virtual event, with free access for everyone.
-
-# About our site
-
-This website was built with :heart: :banana: using the [**blogdown**](https://github.com/rstudio/blogdown) that creates this website on [GitHub](https://github.com/tanjakec/myblogdown). The theme was forked from [@jrutheiser/hugo-lithium-theme](https://github.com/jrutheiser/hugo-lithium-theme) and modified by [Yihui Xie](https://github.com/yihui/hugo-lithium-theme).
+During my masters I plan to use Machine Learning techniques to try and elucidate some of the perplexing aetiology of schizophrenia. We will be using genes identified from GWAS and looking at them across the brain during development.
