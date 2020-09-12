@@ -1,0 +1,339 @@
+---
+title: 01 Data Visualisation Introduction Lecture
+author: eugene100hickey
+date: '2020-09-12'
+slug: 01-data-visualisation-introduction-lecture
+categories: []
+tags: []
+output:
+  xaringan::moon_reader:
+    css: [TUD01, TUD02, tamu-fonts]
+---
+
+
+
+<p>class: center, inverse</p>
+<div id="course-contents" class="section level1">
+<h1>Course Contents</h1>
+<hr />
+<ol style="list-style-type: decimal">
+<li>System Configuration - installing software</li>
+<li>Using RStudio</li>
+<li>Introduction to R</li>
+<li>Getting and Cleaning Data</li>
+<li>Exploratory Analysis - making rough plots</li>
+<li>Different Types of Plots</li>
+<li>Playing with Aesthetics</li>
+<li>Using Plotting Themes</li>
+<li>Advanced Topics - Maps, Networks</li>
+</ol>
+<hr />
+<div id="why-were-here" class="section level2">
+<h2>Why We’re Here</h2>
+<ul>
+<li>Alternative to Excel</li>
+<li>Enables Reproducible Research</li>
+<li>Can Make Lots of Plots Quickly
+<ul>
+<li>Good for Exploratory Analysis</li>
+</ul></li>
+<li>Publication Ready Figures</li>
+</ul>
+<hr />
+</div>
+<div id="and.-a-gateway-to-so-much-more" class="section level2">
+<h2>And…. a gateway to so much more</h2>
+<ul>
+<li>data capture</li>
+<li>statistical analysis</li>
+<li>machine learning</li>
+<li>artificial intelligence</li>
+<li>writing your thesis</li>
+<li>writing a blog</li>
+</ul>
+<hr />
+</div>
+<div id="not-why-were-here" class="section level2">
+<h2>Not Why We’re Here</h2>
+<ul>
+<li>Won’t discuss choices for data presentation</li>
+<li>Nor good practices in visualisations
+<ul>
+<li>but these are sort of in the background</li>
+</ul></li>
+<li>This isn’t a machine learning course
+<ul>
+<li>but lots of the techniques we’ll use are relevant</li>
+</ul></li>
+<li>So, this course it about skills development, how you use these is up to you.</li>
+</ul>
+<hr />
+</div>
+<div id="we-said-we-wouldnt-discuss-this.but" class="section level2">
+<h2>We said we wouldn’t discuss this….but</h2>
+<ul>
+<li>Graphics are important, overlooked, and inconsistent</li>
+<li>Need to tell a story</li>
+<li>Can be misleading, almost always by accident</li>
+<li>Choice of colours - we’ll spend some time on this</li>
+<li>Choice of fonts</li>
+<li>Keep it simple - reduce amount of ink</li>
+<li>Increasing number of options for showcasing your data</li>
+</ul>
+<hr />
+<p><img src="/post/2020-09-12-01-data-visualisation-introduction-lecture_files/figure-html/bar_plot-1.png" width="672" style="display: block; margin: auto;" /></p>
+<hr />
+<p><img src="/post/2020-09-12-01-data-visualisation-introduction-lecture_files/figure-html/line_plot-1.png" width="672" style="display: block; margin: auto;" /></p>
+<hr />
+<p><img src="/post/2020-09-12-01-data-visualisation-introduction-lecture_files/figure-html/climate_plot-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="install-r-and-rstudio" class="section level2">
+<h2>Install R and RStudio</h2>
+<hr />
+<div id="r" class="section level3">
+<h3><em>R</em></h3>
+<ul>
+<li>Go to <a href="https://cran.r-project.org/"><em>CRAN</em></a></li>
+</ul>
+</div>
+<div id="rstudio" class="section level3">
+<h3><em>RStudio</em></h3>
+<ul>
+<li>this is the IDE we will use (and pretty much everyone else uses)</li>
+<li>R is the engine, RStudio is the cockpit</li>
+<li>download from <a href="https://rstudio.com/products/rstudio/download/"><em>RStudio</em></a></li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="using-rstudio" class="section level2">
+<h2>Using RStudio</h2>
+<ul>
+<li>toolbar across the top
+<ul>
+<li>I don’t use this very much</li>
+</ul></li>
+<li>set of quick links below that
+<ul>
+<li>top left (green plus sign) is about the only one I use</li>
+</ul></li>
+<li>4 Panes
+<ul>
+<li>top left for files or looking at data</li>
+<li>bottom left for the console</li>
+<li>top right for <em>Environment</em> - tells what variables are stored</li>
+<li>bottom right for plots and help</li>
+</ul></li>
+</ul>
+<hr />
+<p><img src="/post/images/rstudio.PNG" height="600px" width="800px" align="center"/></p>
+<hr />
+<ul>
+<li>usual work flow is:
+<ul>
+<li>try commands out at the console (bottom left)</li>
+<li>when that works, store them in a file (top left)</li>
+<li>when sequence of commands works, put them into a document (also top left)</li>
+</ul></li>
+</ul>
+<hr />
+</div>
+<div id="extending-r" class="section level2">
+<h2>Extending R</h2>
+<ul>
+<li>installing R just gives you <em>base</em> R</li>
+<li>beauty of this tool lies with <em>packages</em></li>
+<li>we’ll look at installing these from three sources:
+<ul>
+<li>CRAN</li>
+<li>Bioconductor</li>
+<li>github</li>
+</ul></li>
+</ul>
+<hr />
+<ul>
+<li><a href="https://cran.r-project.org/">CRAN</a>
+<ul>
+<li>example, on console type <em>install.packages(“tidyverse”)</em></li>
+<li>this installs the tidyverse package (or rather, family of packages)</li>
+<li>over 20k packages on CRAN (see list <a href="http://cran.nexr.com/web/packages/available_packages_by_name.html">here</a>)</li>
+<li>sometimes esoteric (<a href="http://cran.nexr.com/web/packages/engsoccerdata/index.html">engsoccerdata</a>)</li>
+<li>sometimes cutting edge (<a href="http://cran.nexr.com/web/packages/keras/index.html">deep learning</a>)</li>
+<li>each package heavily curated and maintained</li>
+</ul></li>
+</ul>
+<hr />
+<ul>
+<li><a href="www.bioconductor.org">Bioconductor</a>
+<ul>
+<li>set of bioinformatics packages (lots of genomics)</li>
+<li>start with <em>install.packages(“BiocManager”)</em></li>
+<li>then <em>install(“some_genomics_package”)</em> to use</li>
+<li>list of packages <a href="http://bioconductor.org/packages/release/BiocViews.html">here</a></li>
+<li>about 3,000 packages, including genome builds</li>
+</ul></li>
+</ul>
+<hr />
+<ul>
+<li>github
+<ul>
+<li>packages in development</li>
+<li>start with <em>install.packages(“devtools”)</em></li>
+<li>then <em>install_github(“developer_name/package_name”)</em></li>
+<li>almost 80k packages <a href="http://rpkg.gepuro.net/">here</a></li>
+<li>the package <em>githubinstall</em> is useful to search these</li>
+</ul></li>
+</ul>
+<hr />
+<p>background-position: center
+background-size: contain
+class: center, inverse</p>
+</div>
+</div>
+<div id="resources" class="section level1">
+<h1>Resources</h1>
+<hr />
+<ul>
+<li>books
+<ul>
+<li><em>recommended text</em> <strong>Data Visualization</strong> by Kieran Healy (ISBN = 978-0691181622). ~€25. Also online at <a href="https://socviz.co/index.html">https://socviz.co/index.html</a></li>
+<li><a href="https://r4ds.had.co.nz/">Hadley’s book, R for Data Science</a></li>
+<li><a href="https://ggplot2-book.org/">Hadley’s book on ggplo2</a></li>
+<li><a href="https://serialmentor.com/dataviz/">Data Visualization by Wilke</a>, lots of his actual code is on github at <a href="https://github.com/clauswilke/practical_ggplot2">https://github.com/clauswilke/practical_ggplot2</a></li>
+<li>check out the list of online books at <a href="bookdown.org">bookdown.org</a></li>
+</ul></li>
+</ul>
+<p><br/></p>
+<p><img src="/post/images/hadley.jpg" height="100px" width="100px" align="right"/></p>
+<hr />
+<ul>
+<li>websites
+<ul>
+<li>Karl Broman (<a href="https://www.biostat.wisc.edu/~kbroman/" class="uri">https://www.biostat.wisc.edu/~kbroman/</a>), and particularly <a href="https://www.biostat.wisc.edu/~kbroman/presentations/graphs_MDPhD2014.pdf">this presentation</a></li>
+<li>course by Boemhke on github <a href="https://github.com/uc-r/Intro-R">github.com/uc-r/Intro-R</a></li>
+<li>the good people at RStudio have lots of help at <a href="https://resources.rstudio.com/">resources.rstudio.com/</a></li>
+<li><a href="https://cedricscherer.netlify.com/2019/08/05/a-ggplot2-tutorial-for-beautiful-plotting-in-r/">Cedric</a>.</li>
+<li><a href="https://www.r-graph-gallery.com/index.html">The R Graph Gallery</a> is pretty good and worth checking out</li>
+</ul></li>
+</ul>
+<p><br/><br />
+<br/>
+<br/>
+<img src="https://github.com/yihui/xaringan/releases/download/v0.0.2/karl-moustache.jpg" height="80px" width="100px" align="right"/></p>
+<hr />
+<ul>
+<li>Blogs and Podcasts
+<ul>
+<li><a href="www.simplystatistics.org">www.simplystatistics.org</a></li>
+<li><a href="http://varianceexplained.org/">varianceexplained.org</a></li>
+<li><a href="http://nssdeviations.com/">Not So Standard Deviations</a></li>
+<li><a href="https://github.com/thomasp85/ggplot2_workshop">Thomas Lin Pedersen video</a></li>
+</ul></li>
+</ul>
+<p><br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/></p>
+<p><img src="/post/images/hillary.jpeg" height="100px" width="100px" align="right"/></p>
+<hr />
+<ul>
+<li>Online Courses
+<ul>
+<li>Coursera: <a href="https://www.coursera.org/specializations/jhu-data-science">Data Science from Johns Hopkins</a>. The course notes are on <a href="http://datasciencespecialization.github.io/">github</a></li>
+<li>edx.org <a href="https://www.edx.org/course/data-science-visualization">course from Irizarry</a></li>
+<li><a href="www.datacamp.com">datacamp</a></li>
+</ul></li>
+</ul>
+<p><br/><br />
+<br/>
+<br/>
+<br/>
+<br/>
+<br/></p>
+<p><img src="/post/images/rafael.jpg" height="100px" width="100px" align="right"/></p>
+<hr />
+<ul>
+<li>Miscellaneous
+<ul>
+<li><a href="https://www.meetup.com/DublinR/">Dublin R MeetUp</a></li>
+<li><a href="rweekly.org">RWeekly.org</a>, round up of events in the world of R</li>
+<li><a href="https://twitter.com/search?q=%23TidyTuesday&amp;src=typeahead_click">#TidyTuesday</a> on twitter</li>
+<li><a href="https://rstudio.com/resources/cheatsheets/">R Cheatsheets</a></li>
+<li>if you get stuck, google is your friend. Often sends you to stackoverflow.com or stackexchange.com</li>
+</ul></li>
+</ul>
+<hr />
+<ul>
+<li>Some stuff about graphics in general
+<ul>
+<li><a href="http://genomicsclass.github.io/book/pages/plots_to_avoid.html">again, from Irizarry</a></li>
+<li><a href="https://www.r-graph-gallery.com/index.html">hit parade of graphs in R</a></li>
+<li><a href="https://cedricscherer.netlify.com/">Cedric Scherer again</a></li>
+<li>some stuff from <a href="https://ggplot2tor.com/make_any_plot_look_better/make_any_plot_look_better/">Christian Burkhard</a></li>
+<li>and from <a href="https://www.littlemissdata.com/">Laura Ellis</a></li>
+<li>and from <a href="http://paldhous.github.io/ucb/2016/dataviz/">Peter Aldhous</a></li>
+<li><a href="https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/colorPaletteCheatsheet.pdf">colours in R</a></li>
+<li>cool book on good graphics from <a href="https://nces.ed.gov/programs/slds/pdf/08_F_06.pdf">Stephen Few</a></li>
+<li><a href="https://www.williamrchase.com/slides/assets/player/KeynoteDHTMLPlayer.html#0">The Glamour of Graphics</a> talk from last months RStudio Conference</li>
+</ul></li>
+</ul>
+<hr />
+<div id="what-you-have-to-do" class="section level2">
+<h2>What You Have to Do</h2>
+<ul>
+<li>Do a datacamp course every week</li>
+<li>Produce four data graphics
+<ul>
+<li>the first three of these will be specified</li>
+<li>last one will your chance to express yourself</li>
+<li>do one #TidyTuesday challenge</li>
+</ul></li>
+</ul>
+<hr />
+</div>
+<div id="course-communications" class="section level2">
+<h2>Course Communications</h2>
+<ul>
+<li>moodle, of course</li>
+<li>twitter via #data_vis_2020
+<ul>
+<li>I’ll be doing lots of retweets here</li>
+<li>but also for general communications</li>
+</ul></li>
+<li>email at <a href="mailto:eugene.hickey@tudublin.ie" class="email">eugene.hickey@tudublin.ie</a></li>
+<li>you’ll need to create an account at datacamp.com and send me the email you’ll use for this account
+<ul>
+<li>I can check your progress on datacamp courses</li>
+</ul></li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="some-example-images" class="section level1">
+<h1>Some Example Images</h1>
+<hr />
+<pre><code>## OGR data source with driver: ESRI Shapefile 
+## Source: &quot;/home/eugene/Desktop/Coursera/Maps/Africa&quot;, layer: &quot;Africa&quot;
+## with 762 features
+## It has 3 fields</code></pre>
+<pre><code>## Response [https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5918692/bin/NIHMS958804-supplement-Supplementary_Table.xlsx]
+##   Date: 2020-09-12 21:13
+##   Status: 200
+##   Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+##   Size: 1.27 MB
+## &lt;ON DISK&gt;  /tmp/RtmpQacyet/file2516067670f43.xlsx</code></pre>
+<hr />
+<p><img src="/post/2020-09-12-01-data-visualisation-introduction-lecture_files/figure-html/tidytuesday_rollercoaster-1.png" width="864" style="display: block; margin: auto;" /></p>
+<hr />
+<p><img src="/post/2020-09-12-01-data-visualisation-introduction-lecture_files/figure-html/autism_plot-1.png" width="864" style="display: block; margin: auto;" /></p>
+<hr />
+<p><img src="/post/2020-09-12-01-data-visualisation-introduction-lecture_files/figure-html/tb_plot-1.gif" style="display: block; margin: auto;" /></p>
+<hr />
+<p><img src="/post/2020-09-12-01-data-visualisation-introduction-lecture_files/figure-html/knotweed-1.png" width="768" style="display: block; margin: auto;" /></p>
+<hr />
+<p><img src="/post/2020-09-12-01-data-visualisation-introduction-lecture_files/figure-html/sz_brain-1.png" width="864" style="display: block; margin: auto;" /></p>
+<hr />
+<p><img src="/post/2020-09-12-01-data-visualisation-introduction-lecture_files/figure-html/tweets-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
