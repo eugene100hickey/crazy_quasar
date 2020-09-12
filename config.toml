@@ -12,9 +12,14 @@ enableEmoji = true
 
 [[menu.main]]
     name = "About"
-    pre = ""
+    pre = "fa-user-circle"
     url = "/about/"
     weight = 1
+[[menu.main]]
+    name = "CV"
+    pre = "fa-file"
+    url = "/cv.html"
+    weight = 5
 [[menu.main]]
     name = "Facebook"
     pre = "fa-facebook-square"
@@ -27,7 +32,7 @@ enableEmoji = true
     weight = 3
 [[menu.main]]
     name = "TU Dublin"
-    pre = "fa-leaf"
+    pre = "fa-university"
     url = "https://www.ittdublin.ie"
     weight = 4
 [[menu.main]]
