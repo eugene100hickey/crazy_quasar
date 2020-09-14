@@ -1,0 +1,70 @@
+---
+title: Where to find your Genes
+author: eugene100hickey
+date: '2020-09-14'
+slug: where-to-find-your-genes
+categories: []
+tags: []
+---
+
+
+
+<p>We’ve been working with the genetics of schizophrenia, looking at how the expression of genes that play a role in the condition vary across brain regions and neurodevelopment stages. Now, call me old-fashioned, but I like to know how things are laid out, so in this case where these genes are situated. Time for a plot.</p>
+<p>The genes in question come from a <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5918692/">GWAS study of the PGC</a>. The images are build based on the <a href="https://www.bioconductor.org/packages/release/bioc/html/ggbio.html">ggbio</a> and <a href="http://bioconductor.org/packages/release/bioc/html/karyoploteR.html">karyoploteR</a> packages from bioconductor.</p>
+<p>First, let’s load up the required packages:</p>
+<pre class="r"><code>knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+
+if (!require(&quot;pacman&quot;)) install.packages(&quot;pacman&quot;)</code></pre>
+<pre><code>## Loading required package: pacman</code></pre>
+<pre class="r"><code>pacman::p_load(annotables, tidyverse, ggbio,
+               httr, readxl, ABAData, 
+               GenomicRanges, karyoploteR)</code></pre>
+<p>Next, we get a list of the genes from the PGC. These are taken from one of the supplementary tables from the <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5918692/">2018 paper</a> mentioned above. We only care about the ones that also feature in the <a href="https://portal.brain-map.org/">Allen Brain Atlas</a>, so we filter for those.</p>
+<pre class="r"><code>url &lt;- &quot;https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5918692/bin/NIHMS958804-supplement-Supplementary_Table.xlsx&quot;
+GET(url, write_disk(temp_file &lt;- tempfile(fileext = &quot;.xlsx&quot;))) # downloads the .xlsx file</code></pre>
+<pre><code>## Response [https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5918692/bin/NIHMS958804-supplement-Supplementary_Table.xlsx]
+##   Date: 2020-09-14 22:19
+##   Status: 200
+##   Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+##   Size: 1.27 MB
+## &lt;ON DISK&gt;  /tmp/RtmpZUPRz7/file19b77675bf6b6.xlsx</code></pre>
+<pre class="r"><code>df &lt;- read_excel(temp_file, sheet = 4, skip = 3) # reads into a dataframe. First six rows of the excel file are just header
+unlink(temp_file)     # deletes the temporary file
+
+
+##################################################################
+# makes sz_genes, a dataframe with a single column of the CLOZUK genes
+#######################################################################
+
+sz_genes &lt;- df$`Gene(s) tagged` %&gt;% 
+  str_split(&quot;,&quot;) %&gt;% 
+  unlist() %&gt;% 
+  as.data.frame() %&gt;% 
+  distinct()
+names(sz_genes) &lt;- &quot;genes&quot;
+
+
+data(&quot;dataset_5_stages&quot;)
+
+genes &lt;- sz_genes %&gt;% 
+  semi_join(dataset_5_stages, by = c(&quot;genes&quot; = &quot;hgnc_symbol&quot;)) %&gt;% 
+  pull(genes)</code></pre>
+<p>From our gene list we build a data frame of gene information using Human build 38 (grch38 from the <a href="https://www.rdocumentation.org/packages/annotables/versions/0.1.1">annotables package</a>). And then turn his into an appropriate GRanges object (thank you <a href="https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html">GenomicRanges</a>).</p>
+<pre class="r"><code>gene_table &lt;- grch38 %&gt;% 
+  dplyr::filter(symbol %in% genes) %&gt;% 
+  dplyr::filter(chr %in% c(1:22, &quot;X&quot;, &quot;Y&quot;)) %&gt;% 
+  dplyr::mutate(strand = ifelse(strand == 1, &quot;+&quot;, &quot;-&quot;))
+
+gene_ranges &lt;- makeGRangesFromDataFrame(gene_table, keep.extra.columns = T)
+seqlevelsStyle(gene_ranges) &lt;- &quot;UCSC&quot;</code></pre>
+<p>Now for the plot. The <code>plotKaryotype()</code> function does a lqyout of 24 chromosomes with their cytobands, the <code>kpPlotMarkers()</code> adds in the gene labels. The label colours depend on strand; red for <em>+</em> and green for <em>-</em>. I wasn’t too successful avoiding label overlaps, sorry about that.</p>
+<pre class="r"><code>kp &lt;- plotKaryotype(genome=&quot;hg38&quot;)
+kpPlotMarkers(kp, 
+              data=gene_ranges, 
+              labels=gene_ranges$symbol, 
+              label.color = ifelse(gene_table$strand == &quot;+&quot;, &quot;darkred&quot;, &quot;olivedrab4&quot;),
+              text.orientation = &quot;horizontal&quot;,
+              label.dist = 0.0001,
+              r1=0.5, cex=0.6, adjust.label.position = T)</code></pre>
+<p><img src="/post/2020-09-14-where-to-find-your-genes_files/figure-html/karyogram-1.png" width="672" /></p>
+<p>Our genes are pretty spread out with no particular pattern of course. But I just feel I know them a little better now.</p>
