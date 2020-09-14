@@ -9,14 +9,13 @@ tags: []
 
 
 ```{r setup, message=F, warning=F, echo=F}
-setwd("~/Desktop/Academic/Research/Blogs/Tennis/files")
-
 library(dplyr)
 library(tidyr)
 library(lubridate)
 library(purrr)
 library(readr)
 library(ggplot2)
+library(httr)
 
 theme_set(theme_minimal())
 ```
@@ -34,9 +33,7 @@ We focused on data just from 1990 on, after all tennis has changed dramatically 
 
 ```{r data_input, message=F, warning=F, cache=FALSE}
 #load in atp files
-atp <-
-  list.files(pattern="https://raw.githubusercontent.com/eugene100hickey/crazy_quasar/master/content/post/data/*.csv") %>% 
-  map_df(~read.csv(.)) %>% 
+atp <- read_csv("https://raw.githubusercontent.com/eugene100hickey/crazy_quasar/master/content/post/data/atp_matches_all.csv") %>%
   as_tibble()
 ```
 
@@ -52,7 +49,7 @@ atp <- atp %>%
 
 #adding a year column to the dataframe
 atp <- atp %>%
-  mutate(year = year(ymd(tourney_date)))
+  mutate(year = lubridate::year(ymd(tourney_date)))
 
 #pick out just the 2 set games
 two_sets = atp %>% 
