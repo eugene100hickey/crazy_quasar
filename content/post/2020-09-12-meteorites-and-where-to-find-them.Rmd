@@ -31,6 +31,7 @@ library(tidyverse)
 library(leaflet)
 library(sp)
 library(rworldmap)
+library(lubridate)
 #library(RColorBrewer)
 #library(viridisLite)
 #library(png)
@@ -40,8 +41,6 @@ library(broom)
 ```
 
 
-
-A little warning before you begin. This is a large web page (`r round((file.size("Meteorite_Landings.html")/1e6), 2)` MB) so can take a while to load. On a slower line you might need to be patient, especially with the two maps top and bottom. Also, this page isn't optimised for mobile devices, I can't imagine it'll render too well on a smaller screen.
 
 This analysis was inspired by a set of talks by Mike Brown of Caltech on small bodies in the Solar System (these are available as part of his course on [_The Science of the Solar System_](https://www.coursera.org/learn/solar-system/home/welcome) on Coursera). He speaks with passion about these fascinating objects and how they tell an intriguing story about the formation of our Solar System. Most of the science you'll meet within this blog comes either from this course or else an excellent book, [_Physics and Chemistry of the Solar System_](https://www.amazon.co.uk/Physics-Chemistry-Solar-System-Lewis/dp/0124467415/ref=sr_1_1?ie=UTF8&qid=1527782751&sr=8-1&keywords=physics+and+chemistry+of+the+solar+system+lewis) by John Lewis.
 
@@ -72,7 +71,7 @@ coords2continent = function(points)
 
 
 ```{r data, echo=F, warning=F, message=F, cache=T}
-meteors <- read.csv("/post/data/Meteorite_Landings.csv", sep=",")
+meteors <- read.csv("https://raw.githubusercontent.com/eugene100hickey/crazy_quasar/master/content/post/data/Meteorite_Landings.csv", sep=",")
 meteors <- meteors %>% select(-GeoLocation)
 names(meteors)[5] <- "mass_g"
 
@@ -89,7 +88,7 @@ meteors[grepl(x=meteors$name, pattern="Yamato*") & is.na(meteors$reclong),]$recl
 empties <- sum(!complete.cases(meteors))
 
 meteors <- meteors %>% 
-  mutate(year=year(dmy_hms(year))) %>% 
+  mutate(year=lubridate::year(dmy_hms(year))) %>% 
   mutate(kg=mass_g/1000) %>% 
   na.omit %>% 
   filter(kg!=0) %>% 
