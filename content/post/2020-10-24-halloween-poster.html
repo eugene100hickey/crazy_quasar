@@ -413,7 +413,7 @@ Next we’ll load up those fonts.</p>
 font_add(&quot;Gypsy Curse&quot;, &quot;fonts/Font2/Gypsy Curse.ttf&quot;)
 font_add(&quot;Fiendish&quot;, &quot;fonts/Font3/Fiendish.ttf&quot;)</code></pre>
 <p>Now we can start to build our poster. We use <code>magick</code> to read in the hse image file. It initially has a white border that is then cropped out. On top on this we place a yellow block to cover existing <em>Coronavirus</em> and <em>Covid-19</em> text (we had discerned the exact shade of yellow beforehand, thank you <code>colorfindr</code>). Then we replace these with the same text in our Halloween fonts.</p>
-<pre class="r"><code>corona &lt;- image_read(&quot;images/covid.jpg&quot;) %&gt;% 
+<pre class="r"><code>corona &lt;- image_read(&quot;https://raw.githubusercontent.com/eugene100hickey/crazy_quasar/master/content/post/images/covid.jpg&quot;) %&gt;% 
   image_crop(&quot;625x900+185+50&quot;) %&gt;% 
   image_draw()
 # get rid of existing text by putting colour blocks over them
