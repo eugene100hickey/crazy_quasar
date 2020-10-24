@@ -10,7 +10,7 @@
 <meta property="og:title" content="Where to find your Genes - Blog on Astro-statistics">
 
 
-  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+  <link href='https://bioscience.netlify.app/favicon.ico' rel='icon' type='image/x-icon'/>
 
 
 
@@ -99,11 +99,11 @@ if (!require(&quot;pacman&quot;)) install.packages(&quot;pacman&quot;)</code></p
 <pre class="r"><code>url &lt;- &quot;https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5918692/bin/NIHMS958804-supplement-Supplementary_Table.xlsx&quot;
 GET(url, write_disk(temp_file &lt;- tempfile(fileext = &quot;.xlsx&quot;))) # downloads the .xlsx file</code></pre>
 <pre><code>## Response [https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5918692/bin/NIHMS958804-supplement-Supplementary_Table.xlsx]
-##   Date: 2020-10-24 17:54
+##   Date: 2020-10-24 20:07
 ##   Status: 200
 ##   Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
 ##   Size: 1.27 MB
-## &lt;ON DISK&gt;  /tmp/RtmpcnRPSL/file1d1617ed3eb15.xlsx</code></pre>
+## &lt;ON DISK&gt;  /tmp/Rtmp65HEu5/file1f99619729ddb.xlsx</code></pre>
 <pre class="r"><code>df &lt;- read_excel(temp_file, sheet = 4, skip = 3) # reads into a dataframe. First six rows of the excel file are just header
 unlink(temp_file)     # deletes the temporary file
 
