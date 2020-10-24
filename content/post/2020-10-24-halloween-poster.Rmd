@@ -8,7 +8,7 @@ tags: []
 ---
 
 ```{r setup, echo=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, cache = TRUE)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, cache = FALSE)
 ```
 
 ```{r libraries_real, cache=FALSE, echo = F}
@@ -53,7 +53,7 @@ font_add("Gypsy Curse", "fonts/Font2/Gypsy Curse.ttf")
 font_add("Fiendish", "fonts/Font3/Fiendish.ttf")
 ```
 
-Now we can start to build our poster. We use `magick` to read in the hse image file. It initially has a white border that is then cropped out. On top on this we place a yellow block to cover existing _Coronavirus_ and _Covid-19_ text (we had discerned the exact shade of yellow beforehand, thank you `colorfindr`). Then we replace these with the same text in our Halloween fonts.
+Now we can start to build our poster. We use `magick` to read in the hse image file. It initially has a white border that is then cropped out. On top on this we place a yellow block and a white block to cover existing _Coronavirus_ and _Covid-19_ text (we had discerned the exact shade of yellow beforehand, thank you `colorfindr`), and a white block to cover other text further down the poster. Then we replace these with the same text in our Halloween fonts.
 ```{r background_image}
 corona <- image_read("https://raw.githubusercontent.com/eugene100hickey/crazy_quasar/master/content/post/images/covid.jpg") %>% 
   image_crop("625x900+185+50") %>% 
@@ -70,7 +70,7 @@ text(x = 312, y = 825, adj = c(0.5, 0), family = "Fiendish", cex = 2,
      label = "Remember\n\nTo keep 2m apart\n\nin the seating area")
 ```
 
-Next up we use `emojifont` to make some extra graphics featuring halloween stuff. In this case _spiders_, _bats_, and _skulls_, but `emojofont::search_emoji(str = "")` shows that are far more available. The original graphics had an annoying border top and left, `image_crop()` was used to erase these.
+Next up we use `emojifont` to make some extra graphics featuring halloween stuff. In this case _spiders_, _bats_, and _skulls_, but `emojifont::search_emoji(str = "")` shows that are far more available. The original graphics had an annoying border top and left, `image_crop()` was used to erase these.
 
 ```{r extra_icons}
 spider <- image_graph(width = 300, height = 400, res = 50)
@@ -89,22 +89,41 @@ ggplot() +
 bat <- image_crop(bat, "299x399+1+1") %>% 
   image_scale(50)
 
+scream <- image_graph(width = 300, height = 400, res = 50)
+ggplot() + 
+  geom_emoji("scream", color='black') + 
+  theme_void() + 
+  theme(panel.background = element_rect(fill = "#FFEE00"))
+scream <- image_crop(scream, "319x349+1+1") %>% 
+  image_scale(80) %>% 
+  image_rotate(270)
+
 skull <- image_graph(width = 300, height = 400, res = 50)
 ggplot() + 
   geom_emoji("skull", color='black') + 
   theme_void() + 
   theme(panel.background = element_rect(fill = "#FFFFFF")) 
-skull <- image_crop(skull, "299x399+1+1") %>% 
-  image_scale(50)
+skull <- image_crop(skull, "299x329+1+1") %>% 
+  image_scale(60)
+
+head_bandage <- image_graph(width = 300, height = 400, res = 50)
+ggplot() + 
+  geom_emoji("face_with_head_bandage", color='black') + 
+  theme_void() + 
+  theme(panel.background = element_rect(fill = "#FFFFFF")) 
+head_bandage <- image_crop(head_bandage, "299x309+1+1") %>% 
+  image_scale(60)
 ```
 
 And finally to the complete poster, adding in our `emojifont` graphics. The exact position took a bit of trial and error.
 
-```{r poster}
+```{r poster, fig.align="center"}
 corona %>% image_composite(spider) %>% 
   image_composite(bat, offset = "+200") %>% 
-  image_composite(skull, offset = "+150+270") %>% 
-  image_composite(skull, offset = "+422+270")
+  image_composite(skull, offset = "+148+272") %>% 
+  image_composite(head_bandage, offset = "+420+275") %>% 
+  image_composite(scream, offset = "+535+550") %>%
+  image_resize("2000x1500")
 
 ```
 
