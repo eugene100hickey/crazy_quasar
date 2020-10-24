@@ -187,7 +187,7 @@ class: center, inverse
 
 ---
 
-<img src="images/rstudio.PNG" height="600px" width="800px" align="center"/> 
+<img src="/post/images/rstudio.PNG" height="600px" width="800px" align="center"/> 
 
 ---
 
@@ -254,7 +254,7 @@ class: center, inverse
     
 <br/>
 
-<img src="images/hadley.jpg" height="100px" width="100px" align="right"/>
+<img src="/post/images/hadley.jpg" height="100px" width="100px" align="right"/>
 
 ---
 
@@ -286,7 +286,7 @@ class: center, inverse
 <br/>
 <br/>
 
-<img src="images/hillary.jpeg" height="100px" width="100px" align="right"/>
+<img src="/post/images/hillary.jpeg" height="100px" width="100px" align="right"/>
     
     
 ---
@@ -303,7 +303,7 @@ class: center, inverse
 <br/>
 <br/>
 
-<img src="images/rafael.jpg" height="100px" width="100px" align="right"/>
+<img src="/post/images/rafael.jpg" height="100px" width="100px" align="right"/>
     
 ---
 
