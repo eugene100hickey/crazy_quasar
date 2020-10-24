@@ -82,6 +82,7 @@
 
     <div class="article-content">
       
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
 <div id="the-concept" class="section level2">
@@ -172,7 +173,7 @@ ggplot(data = tally, aes(x=Set1, y=Set2, fill = new_count)) +
 <p>To unpick this and see if there are any subtle effects, anything I can tell Jimmy, it’s time to call on a <span class="math inline">\(\chi^2\)</span> test.</p>
 <pre class="r"><code>#have a look at what chi-squared says about the set scores
 chiSquared &lt;- two_sets[,1:2] %&gt;% table() %&gt;% chisq.test()</code></pre>
-<p>Not surprisingly, the <span class="math inline">\(\chi^2\)</span> statistic is highly significant and the scores from set one and set two are not independent. These are after all, the same two players facing off. We finish with a <span class="math inline">\(\chi^2\)</span> p-value of 310^{-130}.</p>
+<p>Not surprisingly, the <span class="math inline">\(\chi^2\)</span> statistic is highly significant and the scores from set one and set two are not independent. These are after all, the same two players facing off. We finish with a <span class="math inline">\(\chi^2\)</span> p-value of 0.</p>
 <p>The real story might be in the residuals. These are shown in the tiled plot below. Red squares indicate score combinations that are unusually frequent. Blue squares, scores that we don’t see as often as we’d expect.</p>
 <pre class="r"><code>residuals = chiSquared$residuals
 ggplot(as.data.frame(residuals), aes(x=Set1, y = Set2, fill=Freq)) + 

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.72.0" />
+
+
+<title>Covid-Themed Halloween Poster - Blog on Astro-statistics</title>
+<meta property="og:title" content="Covid-Themed Halloween Poster - Blog on Astro-statistics">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+<link rel="stylesheet" href="/css/erum.css">
+
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+<script src="https://use.fontawesome.com/43a7e1e617.js"></script>
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/brainCode.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+  <ul class="nav-links">
+    
+    <li><a href="/about/"><i class="fa fa-user-circle fa-lg fa-fw" aria-hidden="true"></i>&nbsp; About</a></li>
+    
+    <li><a href="https://www.facebook.com/eugene100hickey"><i class="fa fa-facebook-square fa-lg fa-fw" aria-hidden="true"></i>&nbsp; Facebook</a></li>
+    
+    <li><a href="https://twitter.com/eugene100hickey"><i class="fa fa-twitter-square fa-lg fa-fw" aria-hidden="true"></i>&nbsp; Twitter</a></li>
+    
+    <li><a href="https://www.ittdublin.ie"><i class="fa fa-university fa-lg fa-fw" aria-hidden="true"></i>&nbsp; TU Dublin</a></li>
+    
+    <li><a href="/cv.html"><i class="fa fa-file fa-lg fa-fw" aria-hidden="true"></i>&nbsp; CV</a></li>
+    
+    <li><a href="/post/"><i class="fa fa-bullhorn fa-lg fa-fw" aria-hidden="true"></i>&nbsp; Posts</a></li>
+    
+  </ul>
+</nav>
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">3 min read</span>
+    
+
+    <h1 class="article-title">Covid-Themed Halloween Poster</h1>
+
+    
+    <span class="article-date">2020-10-24</span>
+    
+
+    <div class="article-content">
+      
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<p>Covid-19 is a lethal pandemic, and our thoughts go out to those who have lost loved-ones or livelihoods to the disease.<br />
+That said, this is a special time of year, so we felt appropriate to give coronavirus a halloweenesque (halloweenable, halloweenish?) treatment. We’re going to make a Halloween poster featuring the virus, and we’re going to do it with magick. Of course.</p>
+<div id="materials-and-methods" class="section level2">
+<h2>Materials and Methods</h2>
+<p><strong>Fonts</strong>: the run-of-the-mill fonts just don’t quite do it for halloween. So we turned to <a href="https://www.fonts4free.net/fonts-by-sinister-fonts.html">fonts4free</a> and their line-up of sinister fonts. <em>Ghastly Panic</em> and <em>Gypsy Curse</em>, and <em>Fiendish</em> looked about right, with an honourable mention to <em>October Crow</em>. The <em>extrafont</em> package is pretty good at handling the installation of new fonts, but for these three I just downloaded the .ttf files and put them in my .fonts directory.<br />
+<strong>Background</strong>: There are lots corona posters out there. We chose one from the <a href="www.hse.ie">Health Service Executive</a> here in Ireland. We downloaded it and put it in a local directory.</p>
+</div>
+<div id="the-code" class="section level2">
+<h2>The Code</h2>
+<p>First we put in place the libraries we’ll need:</p>
+<pre class="r"><code>library(tidyverse)
+library(magick)
+library(showtext)
+library(emojifont)
+library(here)</code></pre>
+<p><code>tidyverse</code> is an ever present, <code>magick</code> does the heavy lifting, <code>showtext</code> to access the new fonts, <code>emojifont</code> to get some Halloween icons, and <code>here</code> because it is so useful.<br />
+Next we’ll load up those fonts.</p>
+<pre class="r"><code>font_add(&quot;Ghastly Panic&quot;, &quot;/home/eugene/.fonts/Font1/Ghastly Panic.ttf&quot;)
+font_add(&quot;Gypsy Curse&quot;, &quot;/home/eugene/.fonts/Font2/Gypsy Curse.ttf&quot;)
+font_add(&quot;Fiendish&quot;, &quot;/home/eugene/.fonts/Font3/Fiendish.ttf&quot;)</code></pre>
+<p>Now we can start to build our poster. We use <code>magick</code> to read in the hse image file. It initially has a white border that is then cropped out. On top on this we place a yellow block to cover existing <em>Coronavirus</em> and <em>Covid-19</em> text (we had discerned the exact shade of yellow beforehand, thank you <code>colorfindr</code>). Then we replace these with the same text in our Halloween fonts.</p>
+<pre class="r"><code>corona &lt;- image_read(&quot;/home/eugene/Desktop/Elaine/covid.jpg&quot;) %&gt;% 
+  image_crop(&quot;625x900+185+50&quot;) %&gt;% 
+  image_draw()
+# get rid of existing text by putting colour blocks over them
+rect(xleft = 0, ybottom = 150, xright = 400, ytop = 0, border = NA, col = &quot;#FFEE00&quot;)
+rect(xleft = 80, ybottom = 850, xright = 545, ytop = 680, border = NA, col = &quot;#FFFFFF&quot;)
+# add new text in appropriate fonts
+text(x = 200, y = 100, family = &quot;Gypsy Curse&quot;, cex = 8,
+     label = &quot;Coronavirus&quot;)
+text(x = 130, y = 200, family = &quot;Ghastly Panic&quot;, cex = 6, 
+     label = &quot;Covid-19&quot;)
+text(x = 312, y = 825, adj = c(0.5, 0), family = &quot;Fiendish&quot;, cex = 2,
+     label = &quot;Remember\n\nTo keep 2m apart\n\nin the seating area&quot;)</code></pre>
+<p>Next up we use <code>emojifont</code> to make some extra graphics featuring halloween stuff. In this case <em>spiders</em>, <em>bats</em>, and <em>skulls</em>, but <code>emojofont::search_emoji(str = "")</code> shows that are far more available. The original graphics had an annoying border top and left, <code>image_crop()</code> was used to erase these.</p>
+<pre class="r"><code>spider &lt;- image_graph(width = 300, height = 400, res = 50)
+ggplot() + 
+  geom_emoji(&quot;spider&quot;, color=&#39;black&#39;) + 
+  theme_void() + 
+  theme(panel.background = element_rect(fill = &quot;#FFEE00&quot;))
+spider &lt;- image_crop(spider, &quot;299x399+1+1&quot;) %&gt;% 
+  image_scale(50)
+
+bat &lt;- image_graph(width = 300, height = 400, res = 50)
+ggplot() + 
+  geom_emoji(&quot;bat&quot;, color=&#39;black&#39;) + 
+  theme_void() + 
+  theme(panel.background = element_rect(fill = &quot;#FFEE00&quot;))
+bat &lt;- image_crop(bat, &quot;299x399+1+1&quot;) %&gt;% 
+  image_scale(50)
+
+skull &lt;- image_graph(width = 300, height = 400, res = 50)
+ggplot() + 
+  geom_emoji(&quot;skull&quot;, color=&#39;black&#39;) + 
+  theme_void() + 
+  theme(panel.background = element_rect(fill = &quot;#FFFFFF&quot;)) 
+skull &lt;- image_crop(skull, &quot;299x399+1+1&quot;) %&gt;% 
+  image_scale(50)</code></pre>
+<p>And finally to the complete poster, adding in our <code>emojifont</code> graphics. The exact position took a bit of trial and error.</p>
+<pre class="r"><code>corona %&gt;% image_composite(spider) %&gt;% 
+  image_composite(bat, offset = &quot;+200&quot;) %&gt;% 
+  image_composite(skull, offset = &quot;+150+270&quot;) %&gt;% 
+  image_composite(skull, offset = &quot;+422+270&quot;)</code></pre>
+<p><img src="/post/2020-10-24-halloween-poster_files/figure-html/poster-1.png" width="312" /></p>
+<p>Hope you like it.<br />
+Happy Halloween everyone, and stay safe.</p>
+</div>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+

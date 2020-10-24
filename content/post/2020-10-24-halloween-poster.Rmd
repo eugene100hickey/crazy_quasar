@@ -1,8 +1,10 @@
 ---
-title: "Covid-Themed Halloween Poster"
-author: "Eugene"
-date: "24/10/2020"
-output: html_document
+title: Covid-Themed Halloween Poster
+author: eugene100hickey
+date: '2020-10-24'
+slug: halloween-covid-poster
+categories: []
+tags: []
 ---
 
 ```{r setup, echo=FALSE}
