@@ -1,4 +1,4 @@
-baseurl = "https://crazy-quasar.netlify.app/"
+baseurl = "https://bioscience.netlify.app/"
 languageCode = "en-us"
 title = "Blog on Astro-statistics"
 theme = "hugo-lithium"
