@@ -26,10 +26,10 @@ font_add("Fiendish", "/home/eugene/.fonts/Font3/Fiendish.ttf")
 ```
 
 Covid-19 is a lethal pandemic, and our thoughts go out to those who have lost loved-ones or livelihoods to the disease.  
-That said, this is a special time of year, so we felt appropriate to give coronavirus a halloweenesque (halloweenable, halloweenish?) treatment. We're going to make a Halloween poster featuring the virus, and we're going to do it with magick. Of course.
+That said, this is a special time of year, so we felt appropriate to give coronavirus a halloweenesque (halloweenable, halloweenish?) treatment. We're going to make a Halloween poster featuring the virus, and we're going to do it with `magick`. Of course.
 
 ## Materials and Methods
-**Fonts**: the run-of-the-mill fonts just don't quite do it for halloween. So we turned to [fonts4free](https://www.fonts4free.net/fonts-by-sinister-fonts.html) and their line-up of sinister fonts. _Ghastly Panic_ and _Gypsy Curse_, and  _Fiendish_ looked about right, with an honourable mention to _October Crow_. The _extrafont_ package is pretty good at handling the installation of new fonts, but for these three I just downloaded the .ttf files and put them in my .fonts directory.  
+**Fonts**: the run-of-the-mill fonts just don't quite do it for halloween. So we turned to [fonts4free](https://www.fonts4free.net/fonts-by-sinister-fonts.html) and their line-up of sinister fonts. _Ghastly Panic_ and _Gypsy Curse_, and  _Fiendish_ looked about right, with an honourable mention to _October Crow_. The _extrafont_ package is pretty good at handling the installation of new fonts, but for these three I just downloaded the .ttf files and put them in my _fonts_ directory.  
 **Background**: There are lots corona posters out there. We chose one from the [Health Service Executive](www.hse.ie) here in Ireland. We downloaded it and put it in a local directory.
 
 
@@ -48,14 +48,14 @@ library(here)
 Next we'll load up those fonts.
 
 ```{r fonts, eval=F, echo=TRUE, }
-font_add("Ghastly Panic", "/home/eugene/.fonts/Font1/Ghastly Panic.ttf")
-font_add("Gypsy Curse", "/home/eugene/.fonts/Font2/Gypsy Curse.ttf")
-font_add("Fiendish", "/home/eugene/.fonts/Font3/Fiendish.ttf")
+font_add("Ghastly Panic", "fonts/Font1/Ghastly Panic.ttf")
+font_add("Gypsy Curse", "fonts/Font2/Gypsy Curse.ttf")
+font_add("Fiendish", "fonts/Font3/Fiendish.ttf")
 ```
 
 Now we can start to build our poster. We use `magick` to read in the hse image file. It initially has a white border that is then cropped out. On top on this we place a yellow block to cover existing _Coronavirus_ and _Covid-19_ text (we had discerned the exact shade of yellow beforehand, thank you `colorfindr`). Then we replace these with the same text in our Halloween fonts.
 ```{r background_image}
-corona <- image_read("/home/eugene/Desktop/Elaine/covid.jpg") %>% 
+corona <- image_read("images/covid.jpg") %>% 
   image_crop("625x900+185+50") %>% 
   image_draw()
 # get rid of existing text by putting colour blocks over them
