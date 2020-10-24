@@ -71,7 +71,7 @@
 
   <article class="article">
     
-    <span class="article-duration">3 min read</span>
+    <span class="article-duration">4 min read</span>
     
 
     <h1 class="article-title">Covid-Themed Halloween Poster</h1>
@@ -105,7 +105,7 @@ Next we’ll load up those fonts.</p>
 <pre class="r"><code>font_add(&quot;Ghastly Panic&quot;, &quot;fonts/Font1/Ghastly Panic.ttf&quot;)
 font_add(&quot;Gypsy Curse&quot;, &quot;fonts/Font2/Gypsy Curse.ttf&quot;)
 font_add(&quot;Fiendish&quot;, &quot;fonts/Font3/Fiendish.ttf&quot;)</code></pre>
-<p>Now we can start to build our poster. We use <code>magick</code> to read in the hse image file. It initially has a white border that is then cropped out. On top on this we place a yellow block to cover existing <em>Coronavirus</em> and <em>Covid-19</em> text (we had discerned the exact shade of yellow beforehand, thank you <code>colorfindr</code>). Then we replace these with the same text in our Halloween fonts.</p>
+<p>Now we can start to build our poster. We use <code>magick</code> to read in the hse image file. It initially has a white border that is then cropped out. On top on this we place a yellow block and a white block to cover existing <em>Coronavirus</em> and <em>Covid-19</em> text (we had discerned the exact shade of yellow beforehand, thank you <code>colorfindr</code>), and a white block to cover other text further down the poster. Then we replace these with the same text in our Halloween fonts.</p>
 <pre class="r"><code>corona &lt;- image_read(&quot;https://raw.githubusercontent.com/eugene100hickey/crazy_quasar/master/content/post/images/covid.jpg&quot;) %&gt;% 
   image_crop(&quot;625x900+185+50&quot;) %&gt;% 
   image_draw()
@@ -119,7 +119,7 @@ text(x = 130, y = 200, family = &quot;Ghastly Panic&quot;, cex = 6,
      label = &quot;Covid-19&quot;)
 text(x = 312, y = 825, adj = c(0.5, 0), family = &quot;Fiendish&quot;, cex = 2,
      label = &quot;Remember\n\nTo keep 2m apart\n\nin the seating area&quot;)</code></pre>
-<p>Next up we use <code>emojifont</code> to make some extra graphics featuring halloween stuff. In this case <em>spiders</em>, <em>bats</em>, and <em>skulls</em>, but <code>emojofont::search_emoji(str = "")</code> shows that are far more available. The original graphics had an annoying border top and left, <code>image_crop()</code> was used to erase these.</p>
+<p>Next up we use <code>emojifont</code> to make some extra graphics featuring halloween stuff. In this case <em>spiders</em>, <em>bats</em>, and <em>skulls</em>, but <code>emojifont::search_emoji(str = "")</code> shows that are far more available. The original graphics had an annoying border top and left, <code>image_crop()</code> was used to erase these.</p>
 <pre class="r"><code>spider &lt;- image_graph(width = 300, height = 400, res = 50)
 ggplot() + 
   geom_emoji(&quot;spider&quot;, color=&#39;black&#39;) + 
@@ -136,19 +136,38 @@ ggplot() +
 bat &lt;- image_crop(bat, &quot;299x399+1+1&quot;) %&gt;% 
   image_scale(50)
 
+scream &lt;- image_graph(width = 300, height = 400, res = 50)
+ggplot() + 
+  geom_emoji(&quot;scream&quot;, color=&#39;black&#39;) + 
+  theme_void() + 
+  theme(panel.background = element_rect(fill = &quot;#FFEE00&quot;))
+scream &lt;- image_crop(scream, &quot;319x349+1+1&quot;) %&gt;% 
+  image_scale(80) %&gt;% 
+  image_rotate(270)
+
 skull &lt;- image_graph(width = 300, height = 400, res = 50)
 ggplot() + 
   geom_emoji(&quot;skull&quot;, color=&#39;black&#39;) + 
   theme_void() + 
   theme(panel.background = element_rect(fill = &quot;#FFFFFF&quot;)) 
-skull &lt;- image_crop(skull, &quot;299x399+1+1&quot;) %&gt;% 
-  image_scale(50)</code></pre>
+skull &lt;- image_crop(skull, &quot;299x329+1+1&quot;) %&gt;% 
+  image_scale(60)
+
+head_bandage &lt;- image_graph(width = 300, height = 400, res = 50)
+ggplot() + 
+  geom_emoji(&quot;face_with_head_bandage&quot;, color=&#39;black&#39;) + 
+  theme_void() + 
+  theme(panel.background = element_rect(fill = &quot;#FFFFFF&quot;)) 
+head_bandage &lt;- image_crop(head_bandage, &quot;299x309+1+1&quot;) %&gt;% 
+  image_scale(60)</code></pre>
 <p>And finally to the complete poster, adding in our <code>emojifont</code> graphics. The exact position took a bit of trial and error.</p>
 <pre class="r"><code>corona %&gt;% image_composite(spider) %&gt;% 
   image_composite(bat, offset = &quot;+200&quot;) %&gt;% 
-  image_composite(skull, offset = &quot;+150+270&quot;) %&gt;% 
-  image_composite(skull, offset = &quot;+422+270&quot;)</code></pre>
-<p><img src="/post/2020-10-24-halloween-poster_files/figure-html/poster-1.png" width="312" /></p>
+  image_composite(skull, offset = &quot;+148+272&quot;) %&gt;% 
+  image_composite(head_bandage, offset = &quot;+420+275&quot;) %&gt;% 
+  image_composite(scream, offset = &quot;+535+550&quot;) %&gt;%
+  image_resize(&quot;2000x1500&quot;)</code></pre>
+<p><img src="/post/2020-10-24-halloween-poster_files/figure-html/poster-1.png" width="521" style="display: block; margin: auto;" /></p>
 <p>Hope you like it.<br />
 Happy Halloween everyone, and stay safe.</p>
 </div>
