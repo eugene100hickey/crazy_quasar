@@ -16,6 +16,7 @@ library(purrr)
 library(readr)
 library(ggplot2)
 library(httr)
+library(ggtext)
 
 theme_set(theme_minimal())
 ```
@@ -81,12 +82,33 @@ First up, let's examine the frequency of scores across the two sets to see if th
 histogram_tally <- gather(two_sets, 'Set1', 'Set2', key=Set, value="scores") %>%
   group_by(Set, scores) %>%
   summarize(Occurence = n(), min=n()-sqrt(n()), max=n()+ sqrt(n()))
-ggplot(data=histogram_tally, aes(scores, y=Occurence, ymin=min, ymax=max, fill = Set)) +
-  geom_bar(stat = "identity", position = position_dodge()) +
-  labs(title = "Frequency of Scores in Set One and Set Two of\nTwo Set Tennis Matches on the ATP Tour since 1990")
+
+histogram_title <- "Frequency of Scores in <b style = color:'#9999FF'>Set One</b> and <b style = color:'#FF9999'>Set Two</b> of\nTwo Set Tennis Matches on the ATP Tour since 1990"
+ggplot(data=histogram_tally, 
+       aes(scores, y=Occurence, ymin=min, ymax=max, fill = Set)) +
+  geom_bar(stat = "identity", 
+           position = position_dodge(),
+           show.legend = F) +
+  annotate("text", x='7-5', y=8000, 
+           label = "the player that\nloses the 1st set\nprobably serves first\nin the 2nd",
+           col = "#661111",
+           hjust = "center",
+           vjust = "bottom",
+           fontface = 2,
+           family = "Ink Free") + 
+    annotate("curve", x='7-5', xend = '6-4',
+             y = 7500, yend = 6000,
+             col = "#661111", 
+             curvature = -0.5,
+             arrow = arrow()) +
+  scale_fill_manual(values = c('#9999FF', '#FF9999')) +
+  labs(title = histogram_title) +
+  theme(plot.title = element_markdown())
 ```
 
 It seems there is a definite difference here. Set Two had significantly higher numbers of unbalanced sets (6-0, 6-1, 6-2) while Set One has more competitive scores. Maybe Jimmy is on to something.
+
+Out of curiosity, note the large number of 6-4 scores in set 2. This is because, if you loose the first set, there's a strong chance you serve first in the second. In that case a single break of serve in the body of the set will lead to a score of 6-4.
 
 How about score combinations, the real reason we're here. The figure below presents these in a tiled format, the deeper the green the more often we see this match result. By Jimmy's hypothesis, we should be seeing darker greens in the bottom right corner. These are the matches where set one was close and set two more one-sided.
 
