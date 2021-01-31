@@ -40,5 +40,14 @@ Course Contents System Configuration - installing software Using RStudio Introdu
       <description>body, h1, h2, h3, h4 { font-family: &#34;California FB&#34;, serif; } body { color: #00004b; } a, a:hover { color: #8b1a1a; } p, pre { font-size: 16px; }  This analysis was inspired by a set of talks by Mike Brown of Caltech on small bodies in the Solar System (these are available as part of his course on The Science of the Solar System on Coursera).</description>
     </item>
     
+    <item>
+      <title>Untitled</title>
+      <link>https://bioscience.netlify.app/1/01/01/untitled/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://bioscience.netlify.app/1/01/01/untitled/</guid>
+      <description>         {&#34;x&#34;:{&#34;options&#34;:{&#34;crs&#34;:{&#34;crsClass&#34;:&#34;L.CRS.EPSG3857&#34;,&#34;code&#34;:null,&#34;proj4def&#34;:null,&#34;projectedBounds&#34;:null,&#34;options&#34;:{}}},&#34;calls&#34;:[{&#34;method&#34;:&#34;addTiles&#34;,&#34;args&#34;:[&#34;//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&#34;,null,null,{&#34;minZoom&#34;:0,&#34;maxZoom&#34;:18,&#34;tileSize&#34;:256,&#34;subdomains&#34;:&#34;abc&#34;,&#34;errorTileUrl&#34;:&#34;&#34;,&#34;tms&#34;:false,&#34;noWrap&#34;:false,&#34;zoomOffset&#34;:0,&#34;zoomReverse&#34;:false,&#34;opacity&#34;:1,&#34;zIndex&#34;:1,&#34;detectRetina&#34;:false,&#34;attribution&#34;:&#34;&amp;copy; OpenStreetMap contributors, CC-BY-SA&#34;}]},{&#34;method&#34;:&#34;addPopups&#34;,&#34;args&#34;:[42.0285,-93.65,&#34;Here is the Department of Statistics, ISU&#34;,null,null,{&#34;maxWidth&#34;:300,&#34;minWidth&#34;:50,&#34;autoPan&#34;:true,&#34;keepInView&#34;:false,&#34;closeButton&#34;:true,&#34;className&#34;:&#34;&#34;}]}],&#34;setView&#34;:[[42.0285,-93.65],17,[]],&#34;limits&#34;:{&#34;lat&#34;:[42.0285,42.0285],&#34;lng&#34;:[-93.65,-93.65]}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]} </description>
+    </item>
+    
   </channel>
 </rss>
